@@ -1,14 +1,13 @@
 using API.Data;
 using API.entities;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
         public UsersController(DataContext context)
@@ -23,6 +22,7 @@ namespace API.Controllers
             return Ok(users);
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         public ActionResult<AppUser> GetUser(int id)
         {
